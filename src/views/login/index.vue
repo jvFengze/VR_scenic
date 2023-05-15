@@ -40,7 +40,7 @@
           type= password
           >
           <template #suffix>
-            <el-icon class="el-input__icon"><Right /></el-icon>
+            <el-icon class="el-input__icon" @click="submit()"><Right /></el-icon>
           </template>
         </el-input>
       </div>
@@ -48,12 +48,12 @@
         style="margin-top: 20px; 
         width: 200PX;
         position: absolute;
-        top: 50%;
+        top: 55%;
         left: 50%;
         transform: translate(-50%,-50%);" />
   </div>
   <div>
-    <el-checkbox class="remeber" v-model="checked1" label="记住我的账号" size="large" />
+    <el-checkbox class="remeber" v-model="checked" label="记住我的账号" size="large" />
   </div>
   <div style="font-size: 15px;" class="register">
           没有账号?
@@ -66,18 +66,27 @@
 
 <script setup>
   import {ref, reactive} from 'vue'
-  let state = ref(true)
-  let qwe = ref(true)
+  let state = ref(true);
+  let qwe = ref(true);
+  let checked = ref(false);
   let ruleForm = reactive({
   passWord: '',
   userName: '',
-})
+});
+(function () {
+
+})();
 function asd(){
   qwe.value = false
-  let loading = ref(true)
   setTimeout(() =>{
     state.value = false
   },1000)
+};
+function submit(){
+  const payload = {
+    account: ruleForm.userName,
+    passWord: ruleForm.passWord
+  }
 }
 </script>
 
@@ -123,18 +132,18 @@ function asd(){
 }
 .register{
   position: absolute;
-  top: 55%;
+  top: 57%;
   left: 50%;
   transform: translate(-50% , -50%);
 }
 .remeber{
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translate(-50% , -50%);
 }
 .loading{
-  animation: loading 2s infinite linear;
+  animation: loading 2.5s infinite;
 }
 @keyframes loading {
   to{

@@ -4,12 +4,19 @@ const routes = [
     {
         path: '/',
         name: 'login',
-        component: () => import('../login/index.vue')
+        // redirect: '/login',
+        component: () => import('../views/login/index.vue')
     },
 ]
  const router = createRouter({
     history: createWebHashHistory(),
     routes: routes
 })
- 
+
+router.beforeEach((to, from, next) =>{
+    console.log(to);
+    if(to.fullPath === "/"){
+        next()
+    }
+})
 export default router
