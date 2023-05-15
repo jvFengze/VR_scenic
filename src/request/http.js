@@ -12,6 +12,27 @@ const baseURL = {
 const instance = axios.create({
     baseURL: baseURL.production,
   });
+
+// 错误处理
+const errorHandle = (code, message) => {
+    switch(code){
+        case 401:
+            ElMessage({
+                massage: response.data.message + '请重新登录',
+                showClose: true,
+                type: "error"
+            });
+            router.push("/");
+            break;
+        default:
+            ElMessage({
+                massage: response.data.message,
+                showClose: true,
+                type: "error"
+            });
+    }
+}
+
 //  请求拦截
 instance.interceptors.request.use(
     config => {
@@ -32,50 +53,12 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     res => res.data.code === 200 ? Promise.resolve(res) : Promise.reject(res),
     error => {
-
+        const { response } = error;
+        if(response) {
+            errorHandle(response.data.code, response.data.message);
+            return Promise.reject(response);
+        } else {
+            // 处理断网情况
+        }
     }
 )
-
-// 错误处理
-const errorHandle = (code, message) => {
-    switch(code){
-        case 401:
-            ElMessage({
-                massage: response.data.message + '请重新登录',
-                showClose: true,
-                type: "error"
-            });
-            router.push("/");
-            break;
-        }
-}
-// axios.interceptors.response.use(
-//     response =>{
-//         if(response.data.code === 200){
-//             return Promise.resolve(response);
-//         }else {
-//             return Promise.reject(response);
-//         }
-//     },
-//     error => {
-//         if(error.response.data.code){
-//             switch(error.response.data.code){
-//                 case 401:
-//                     ElMessage({
-//                         massage: response.data.message + '请重新登录',
-//                         showClose: true,
-//                         type: "error"
-//                     });
-//                     router.push("/");
-//                     break;
-//                 default:
-//                     ElMessage({
-//                         massage: response.data.message,
-//                         showClose: true,
-//                         type: "error"
-//                     });
-//             }
-//             return Promise.reject(error.response)
-//         }
-//     }
-// )
