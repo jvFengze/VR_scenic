@@ -10,7 +10,7 @@
       <div class="form" v-if="state === true">
         <el-input
           class="ys"
-          v-model="ruleForm.userName"
+          v-model="ruleForm.account"
           placeholder="Please input"
           style="max-width: 300px;"
           >
@@ -23,7 +23,7 @@
       <div class="form" v-else>
         <el-input
           class="ym1"
-          v-model="ruleForm.userName"
+          v-model="ruleForm.account"
           placeholder="Please input"
           style="max-width: 300px;"
           disabled
@@ -65,13 +65,15 @@
 </template>
 
 <script setup>
+  import axios from 'axios'
   import {ref, reactive} from 'vue'
+  import {userLogin} from '../../request/api.js'
   let state = ref(true);
   let qwe = ref(true);
   let checked = ref(false);
   let ruleForm = reactive({
   passWord: '',
-  userName: '',
+  account: '',
 });
 (function () {
 
@@ -84,9 +86,43 @@ function asd(){
 };
 function submit(){
   const payload = {
-    account: ruleForm.userName,
+    account: ruleForm.account,
     passWord: ruleForm.passWord
   }
+  console.log(payload);
+  // console.log(userLogin);
+  userLogin(payload).then(res => {
+    console.log(res);
+  })
+}
+function setUserInfo() {
+  if(checked){
+    setCookie("account",ruleForm.account)
+  }else{
+    setCookie("account","")
+  }
+}
+/**
+ * Cookie值设置函数
+ * @param cname     cookie名称
+ * @param cvalue    cookie值
+ */
+function setCookie(cname, cvalue) {
+  document.cookie  = cname + "=" + cvalue;
+}
+/**
+ * 获取cookie
+ * @param cname cookie名称
+ * @returns {string}
+ */
+function getCookie(cname) {
+  const name = cname + "=";
+  const ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++){
+    let c = ca[i].trim();
+    if(c.indexOf(name) == 0) return c.substring(name.length, c.length);
+  }
+  return "";
 }
 </script>
 

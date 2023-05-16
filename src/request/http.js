@@ -1,10 +1,7 @@
 // // 封装axios
 import axios from 'axios';
-import { error } from 'console';
-import { config } from 'process';
-// import router from '../router/index.js'
+import router from '../router/index.js'
 import { ElMessage } from 'element-plus'
-import { error, group } from 'console';
 
 const baseURL = {
     production: "http://81.70.155.101:8060"
@@ -18,7 +15,7 @@ const errorHandle = (code, message) => {
     switch(code){
         case 401:
             ElMessage({
-                massage: response.data.message + '请重新登录',
+                massage: message + '请重新登录',
                 showClose: true,
                 type: "error"
             });
@@ -26,22 +23,23 @@ const errorHandle = (code, message) => {
             break;
         default:
             ElMessage({
-                massage: response.data.message,
+                massage: message,
                 showClose: true,
                 type: "error"
             });
     }
 }
 
-//  请求拦截
+// //  请求拦截
 instance.interceptors.request.use(
     config => {
-        if (router.history.current.fullPath === "/login") {
+        console.log(router);
+        if (router.currentRoute.value.fullPath === "/") {
             return config;
         } 
-        // else{
-        //     // config.headers.token = token
-        // }
+        else{
+            config.headers.token = sessionStorage.getItem('')
+        }
         return config;
     },
     error => {
@@ -49,7 +47,7 @@ instance.interceptors.request.use(
     }
 )
 
-// 响应拦截器
+// // 响应拦截器
 instance.interceptors.response.use(
     res => res.data.code === 200 ? Promise.resolve(res) : Promise.reject(res),
     error => {
@@ -57,8 +55,11 @@ instance.interceptors.response.use(
         if(response) {
             errorHandle(response.data.code, response.data.message);
             return Promise.reject(response);
-        } else {
-            // 处理断网情况
-        }
+        } 
+        // else {
+        //     // 处理断网情况
+        // }
     }
 )
+
+export default instance
