@@ -21,6 +21,13 @@ const errorHandle = (code, message) => {
             });
             router.push("/");
             break;
+        case 500:
+            ElMessage({
+                massage: message + '请重新登录',
+                showClose: true,
+                type: "error"
+            });
+            break;
         default:
             ElMessage({
                 massage: message,
@@ -33,7 +40,6 @@ const errorHandle = (code, message) => {
 // //  请求拦截
 instance.interceptors.request.use(
     config => {
-        console.log(router);
         if (router.currentRoute.value.fullPath === "/") {
             return config;
         } 
@@ -49,11 +55,11 @@ instance.interceptors.request.use(
 
 // // 响应拦截器
 instance.interceptors.response.use(
-    res => res.data.code === 200 ? Promise.resolve(res) : Promise.reject(res),
+    res => res.status === 200 ? Promise.resolve(res) : Promise.reject(res),
     error => {
-        const { response } = error;
-        if(response) {
-            errorHandle(response.data.code, response.data.message);
+        console.log('1');
+        if(error) {
+            errorHandle(error.data.code, error.data.message);
             return Promise.reject(response);
         } 
         // else {

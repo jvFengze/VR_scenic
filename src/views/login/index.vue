@@ -65,9 +65,11 @@
 </template>
 
 <script setup>
-  import axios from 'axios'
   import {ref, reactive} from 'vue'
+  import router from '../../router/index.js'
   import {userLogin} from '../../request/api.js'
+import { ElMessage } from 'element-plus';
+// import router from '../../router';
   let state = ref(true);
   let qwe = ref(true);
   let checked = ref(false);
@@ -76,28 +78,41 @@
   account: '',
 });
 (function () {
-
+  let account = getCookie("account")
+  if(account){
+    checked.value = true;
+    ruleForm.account = account
+  }
 })();
 function asd(){
-  qwe.value = false
-  setTimeout(() =>{
-    state.value = false
-  },1000)
+  if(ruleForm.account){
+    qwe.value = false
+    setTimeout(() =>{
+      state.value = false
+    },1000)
+  }
 };
 function submit(){
   const payload = {
     account: ruleForm.account,
     passWord: ruleForm.passWord
   }
-  console.log(payload);
-  // console.log(userLogin);
   userLogin(payload).then(res => {
-    console.log(res);
+    if(res.data.code === 200){
+      sessionStorage.setItem('token', res.data.data.token)
+      setUserInfo()
+      router.push('/main')
+    }else{
+      ElMessage({
+        message: res.data.message,
+        type: 'error'
+      })
+    }
   })
 }
 function setUserInfo() {
-  if(checked){
-    setCookie("account",ruleForm.account)
+  if(checked.value === true){
+    setCookie("account",ruleForm.account, 2)
   }else{
     setCookie("account","")
   }
@@ -106,9 +121,13 @@ function setUserInfo() {
  * Cookie值设置函数
  * @param cname     cookie名称
  * @param cvalue    cookie值
+ * @param exdays    过期天数
  */
-function setCookie(cname, cvalue) {
-  document.cookie  = cname + "=" + cvalue;
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  document.cookie  = cname + "=" + cvalue +
+  ((exdays == null) ? '' : ';expires=' + d.toGMTString());
 }
 /**
  * 获取cookie
