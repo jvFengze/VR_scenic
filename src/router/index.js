@@ -3,10 +3,20 @@ import { ElMessage } from 'element-plus'
 
 const routes = [
     {
-        path: '/',
+        path: '/login',
         name: 'login',
         // redirect: '/login',
         component: () => import('../views/login/index.vue')
+    },
+    {
+        path: '/',
+        name: 'home',
+        component: () => import('../views/home/index.vue')
+    },
+    {
+        path: '/scenicList',
+        name: 'scenicList',
+        component: () => import('../views/scenicList/index.vue')
     },
     {
         path: '/main',
@@ -26,20 +36,20 @@ const routes = [
     routes: routes
 })
 
-router.beforeEach((to, from, next) =>{
-    if(to.fullPath === "/"){
-        next()
-    }else{
-        const token = sessionStorage.getItem('token')
-        if(!token){
-            ElMessage({
-                message: "您还没有登录，请先登录！",
-                type: 'error'
-            })
-            next('/')
-        }else{
-            next()
-        }
-    }
-})
+// router.beforeEach((to, from, next) =>{
+//     if(to.fullPath === "/"){
+//         next()
+//     }else{
+//         const token = sessionStorage.getItem('token')
+//         if(!token){
+//             ElMessage({
+//                 message: "您还没有登录，请先登录！",
+//                 type: 'error'
+//             })
+//             next('/')
+//         }else{
+//             next()
+//         }
+//     }
+// })
 export default router

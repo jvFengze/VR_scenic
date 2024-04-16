@@ -1,21 +1,34 @@
 <template>
-  <div class="common-layout">
-    <el-container style="height: 100%;">
-      <el-header style="background-color: #354052;"></el-header>
-      <el-container style="height: 100%;">
-        <el-aside width="200px" style="background-color: #808893;"></el-aside>
-        <el-main></el-main>
-      </el-container>
-    </el-container>
+  <div class="screen-wrapper" ref="screenWrapper" :style="wrapperStyle">
+    <slot></slot>
   </div>
 </template>
 
 <script setup>
-
+import { ref } from 'vue'
+function debounce(fn, delay) {
+  let timer = null;
+  return function (...args) {
+    timer = setTimeout(
+      () => {
+        typeof fn === "function" && fn.apply(null, args);
+        clearTimeout(timer);
+      },
+      delay > 0 ? delay : 100
+    );
+  };
+}
 </script>
 
 <style scoped>
-.common-layout{
+.screen-wrapper {
   height: 100%;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+  position: relative;
+  overflow: hidden;
+  z-index: 100;
+  transform-origin: left top;
 }
 </style>
