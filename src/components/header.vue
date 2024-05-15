@@ -10,15 +10,15 @@
     </div>
     <div class="topButBox dropDownBut">
       <a class="topBut">
-        <span style="cursor:pointer" onclick="jsFun()">核心服务</span>
+        <span style="cursor:pointer" @click="toScenicRecommend()">景区列表</span>
         <span class="after"></span>
-        <div class="dropdownContent">
+        <!-- <div class="dropdownContent">
           <div style="position: relative;">
             <div class="dropdownContentTitle">
               <svg t="1713169539908" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8700" width="25" height="25"><path d="M512 266.24m-61.44 0a61.44 61.44 0 1 0 122.88 0 61.44 61.44 0 1 0-122.88 0Z" fill="#1296db" p-id="8701"></path><path d="M512 512m-61.44 0a61.44 61.44 0 1 0 122.88 0 61.44 61.44 0 1 0-122.88 0Z" fill="#1296db" p-id="8702"></path><path d="M512 757.76m-61.44 0a61.44 61.44 0 1 0 122.88 0 61.44 61.44 0 1 0-122.88 0Z" fill="#1296db" p-id="8703"></path></svg>
               <span style="position: absolute;top: -8px;">核心服务</span>
             </div>
-            <div class="dropdownContentBut" @click="toScenicList()">
+            <div class="dropdownContentBut" @click="toScenicRecommend()">
               <svg t="1713171311604" class="iconfont" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3101" width="25" height="25"><path d="M158.4 551l49.5 23.1c3.3 3.3 9.9 6.6 16.5 6.6h178.3c33-19.8 69.4-33 109-33 9.9 0 19.8 0 26.4 3.3 3.3-3.3 6.6-6.6 6.6-13.2v-23.1h-66l-33-33v-23.1c0-6.6-3.3-9.9-9.9-9.9H257.5c-6.6 0-9.9 3.3-9.9 9.9v23.1l-33 33h-66v23.1c-0.1 6.6 3.2 13.2 9.8 13.2z m-33 165.1l49.5 23.1c0 3.3 6.6 6.6 9.9 6.6 19.8-19.8 49.5-33 79.3-33 19.8 0 36.3 3.3 49.5 13.2 3.3-42.9 23.1-79.3 49.5-112.3H224.5c-6.6 0-9.9 3.3-9.9 9.9v23.1l-33 33h-66v23.1c-0.1 6.7 3.2 13.3 9.8 13.3z m99.1-462.3l49.5 23.1c3.3 3.3 9.9 6.6 16.5 6.6h112.3c6.6 0 13.2-3.3 19.8-3.3l49.5-23.1c3.3-3.3 6.6-9.9 6.6-16.5v-23.1h-66.1l-33-33-13.2-49.5c0-9.9-9.9-16.5-19.8-16.5s-19.8 6.6-19.8 16.5l-13.2 49.5-33 33h-66.1v23.1c0.1 6.6 3.4 13.2 10 13.2z m-33 132.1L241 409c3.3 3.3 9.9 6.6 16.5 6.6h178.3c6.6 0 13.2-3.3 19.8-3.3l49.5-23.1c3.3-3.3 6.6-9.9 6.6-16.5v-23.1h-66.1l-26.4-26.4c-3.3-3.3-9.9-6.6-16.5-6.6H290.5c-6.6 0-13.2 3.3-16.5 6.6l-26.4 26.4h-66.1v23.1c0 6.6 3.4 13.2 10 13.2z m485.4 227.8c33 0 59.4 13.2 79.3 36.3 13.2-3.3 23.1-3.3 36.3-3.3 19.8 0 39.6 3.3 56.1 9.9-16.5-102.4-42.9-198.1-72.7-161.8-26.4 33-29.7-138.7-89.2-138.7-42.9 0-66 102.4-82.6 211.4 23.1 9.9 42.9 26.4 59.4 46.2h13.4z m115.6 66.1c-19.8 0-36.3 3.3-52.8 13.2-9.9-26.4-33-46.2-62.7-46.2-6.6 0-9.9 0-13.2 3.3-3.3 0-9.9 3.3-13.2 3.3-23.1 9.9-36.3 33-36.3 59.4 0 9.9-6.6 16.5-16.5 16.5s-19.8-6.6-19.8-16.5c0-36.3 19.8-69.4 49.5-85.9-29.7-29.7-69.3-46.2-115.6-46.2-92.5 0-165.1 72.7-165.1 165.1v3.3l3.3 3.3c9.9-6.6 19.8-6.6 29.7-6.6 56.1 0 99.1 42.9 99.1 99.1 0 26.4-9.9 49.5-26.4 66h340.1c62.7 0 115.6-52.8 115.6-115.6s-53-115.5-115.7-115.5z m0 0" p-id="3102" fill="#1296db"></path><path d="M379.7 778.9c-16.5 0-29.7 6.6-39.6 13.2-13.2-26.4-42.9-46.2-76-46.2-33 0-62.7 19.8-76 52.8-3.3 0-9.9-3.3-13.2-3.3-33 0-59.4 26.4-59.4 59.4s26.4 56.1 59.4 56.1h204.7c36.3 0 66-29.7 66-66s-29.6-66-65.9-66z m0 0" p-id="3103" fill="#1296db"></path></svg>
               <div class="butText">热门景区</div>
               <div class="butText-item">不知道去哪？来这看看</div>
@@ -33,10 +33,10 @@
               <div class="butText">人文风俗</div>
               <div class="butText-item">了解地方人文历史文化风俗</div>
             </div>
-            <!-- <a class="downBut" id="a" href="#">景区列表</a> -->
+            <a class="downBut" id="a" href="#">景区列表</a>
           </div>
-        </div>
-    </a>
+        </div> -->
+      </a>
     </div>
     <div class="topButBox lastBut">
       <a href="#" class="topBut" v-if="login"><span>个人中心</span></a>
@@ -48,10 +48,14 @@
 
 <script setup>
 import router from '../router/index'
+function toScenicRecommend(){
+  let routerUrl = router.resolve({ path: '/scenicRecommend' })
+  window.open(routerUrl.href)
+  // router.push('/scenicList')
+}
 function toScenicList(){
   let routerUrl = router.resolve({ path: '/scenicList' })
   window.open(routerUrl.href)
-  // router.push('/scenicList')
 }
 function isInViewPortHeader(element){
   // console.log(element);
@@ -62,14 +66,6 @@ function isInViewPortHeader(element){
     // rect.top >=0
   )
 }
-// function isHeader (){
-//   let markn = document.getElementsByClassName('markn');
-//   let topBox = document.getElementsByClassName('topBox')
-//   if(isInViewPortHeader(markn[0])){
-//       topBox[0].classList.add('topBoxDown')
-//     }
-// }
-// isHeader()
 // 监听滚动事件
 function onScrollHeader(){
   // mark = document.getElementById('mark')

@@ -14,6 +14,11 @@ const routes = [
         component: () => import('../views/home/index.vue')
     },
     {
+        path: '/scenicRecommend',
+        name: 'scenicRecommend',
+        component: () => import('../views/scenicRecommend/index.vue')
+    },
+    {
         path: '/scenicList',
         name: 'scenicList',
         component: () => import('../views/scenicList/index.vue')
